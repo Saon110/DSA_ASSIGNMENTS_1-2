@@ -4,7 +4,7 @@ using namespace std;
 
 int main()
 { 
-    freopen("input3.txt", "r", stdin);
+    freopen("input2.txt", "r", stdin);
     freopen("output.txt", "w", stdout);
     BST<int> bst;
     char ch;
@@ -62,7 +62,7 @@ int main()
         }
     }
 
-    fclose(stdin);
-    fclose(stdout);
+    // fclose(stdin);
+    // fclose(stdout);
     return 0;
 }

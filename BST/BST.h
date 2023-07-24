@@ -142,34 +142,24 @@ class BST
     }
     void printHelp(Node<T>* root)
     {
+        if(root==NULL)
+        {
+            return;
+        }
 
-        if (root->left != NULL && root->right != NULL)
+        if(root->left==NULL&& root->right==NULL)
         {
-            cout << "(";
-            cout << root->left->value;
-            printHelp(root->left);
-            cout << "," << root->right->value;
-            printHelp(root->right);
-            cout << ")";
+            cout<<root->value<<" ";
+            return;
         }
-        else if (root->left != NULL && root->right == NULL)
-        {
-            cout << "(";
-            cout << root->left->value;
-            printHelp(root->left);
-            cout << ",)";
-        }
-        else if (root->left == NULL && root->right != NULL)
-        {
-            cout << "(,";
-            cout << root->right->value;
-            printHelp(root->right);
-            cout << ")";
-        }
-        else if (root->left == NULL && root->right == NULL)
-        {
-            // cout << "," ;
-        }
+        cout<<root->value;
+        cout<<"(";
+        printHelp(root->left);
+        cout<<",";
+        printHelp(root->right);
+        cout<<")";
+
+
     }
 
 public:
@@ -209,7 +199,10 @@ public:
     }
     void print()
     {
+        cout<<"(";
         printHelp(rt);
+        cout<<")";
         cout << "\n";
+
     }
 };
