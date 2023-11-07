@@ -1,21 +1,20 @@
-#include<iostream>
+#include <iostream>
 using namespace std;
 
-class list{
+class list
+{
 
+private:
     int curr;
     int maxsize;
     int listsize;
-    int* arr;
-   
+    int *arr;
 
-    public:
-
-    list();
-    //Alist(int K,int X);
-    void init(int,int);  //initializing
-    void insert(int); //insert in current position
-    int remove();     //remove from current position
+public:
+    list();              // constructor
+    void init(int, int); // initializing
+    void insert(int);    // insert in current position
+    int remove();        // remove from current position
     void moveToStart();
     void moveToEnd();
     void prev();
@@ -25,161 +24,185 @@ class list{
     void moveToPos(int);
     int getvalue();
     void showList();
-    
-
-
-
 };
 
-//default constructor
-list::list(){
+// default constructor
+list::list()
+{
 
-     //init(K,X);
-     listsize=0;
-     maxsize=0;
-
+    listsize = 0;
+    maxsize = 0;
 }
 
- void list::showList(){
+void list::showList()
+{
 
-
-        if(listsize==0)cout<<"<>"<<endl;
-        else{
-        cout<<"<"<<" ";
-        for(int i=0;i<listsize;i++){
-            if(i==curr)cout<<"|"<<" ";
-            cout<<arr[i]<<" ";
+    if (listsize == 0)
+        cout << "<>" << endl;
+    else
+    {
+        cout << "<"
+             << " ";
+        for (int i = 0; i < listsize; i++)
+        {
+            if (i == curr)
+                cout << "|"
+                     << " ";
+            cout << arr[i] << " ";
         }
-        if(curr==listsize)cout<<"|"<<" ";
-        cout<<">"<<" ";
-        cout<<endl;
-        }
+        if (curr == listsize)
+            cout << "|"
+                 << " ";
+        cout << ">"
+             << " ";
+        cout << endl;
     }
+}
 
-//init
+// init
 
-void list::init(int K,int X){
+void list::init(int K, int X)
+{
 
-    maxsize=X;
-    curr=0;
-    listsize=0;
-    int p=curr;
-    //arr=(int*)malloc(sizeof(int)*X);
-    arr=new int[maxsize];
-    for(int i=0;i<K;i++){
+    maxsize = X;
+    curr = 0;
+    listsize = 0;
+    int p = curr;
+
+    arr = new int[maxsize];
+    for (int i = 0; i < K; i++)
+    {
         int n;
-        cin>>n;
+        cin >> n;
         insert(n);
         moveToPos(length());
     }
     moveToPos(p);
-    //showList();
-    
 }
 
-//insert
+// insert
 
-void list::insert(int n){
+void list::insert(int n)
+{
 
-    if(listsize==maxsize){
-        maxsize*=2;
-        arr=(int*)realloc(arr,sizeof(int)*maxsize);
-    }
-    for(int i=listsize;i>curr;i--){
-        arr[i]=arr[i-1];
-    }
-    arr[curr]=n;
-    listsize++;
-    //showList();
-
-}
-
-//remove
-
-int list::remove(){
-
-    int r=arr[curr];
-        for(int i=curr;i<listsize;i++){
-            arr[i]=arr[i+1];
+    if (listsize == maxsize)
+    {
+        maxsize *= 2;
+        int *temp = new int[maxsize];
+        for (int i = 0; i < listsize; i++)
+        {
+            temp[i] = arr[i];
         }
-        listsize--;
-       // cout<<"size:"<<listsize<<endl;
-       // showList();
-        return r;
-
+        swap(arr, temp);
+        delete[] temp;
+    }
+    for (int i = listsize; i > curr; i--)
+    {
+        arr[i] = arr[i - 1];
+    }
+    arr[curr] = n;
+    listsize++;
 }
 
-//moveToStart
+// remove
 
-void list::moveToStart(){
+int list::remove()
+{
 
-    curr=0;
-    //showList();
+    int r = arr[curr];
+    for (int i = curr; i < listsize; i++)
+    {
+        arr[i] = arr[i + 1];
+    }
+    listsize--;
+
+    return r;
 }
 
-//moveToEnd
+// moveToStart
 
-void list::moveToEnd(){
-    curr=listsize-1;
-    //showList();
+void list::moveToStart()
+{
+
+    curr = 0;
 }
 
-//prev
+// moveToEnd
 
-void list::prev(){
+void list::moveToEnd()
+{
+    curr = listsize - 1;
+}
 
-    if(curr==0){
-        //cout<<"After next";
-        //showList();
+// prev
+
+void list::prev()
+{
+
+    if (curr == 0)
+    {
+        cout << "Already at the head!" << endl;
         return;
     }
     curr--;
-    //showList();
 }
 
-//next
+// next
 
-void list::next(){
+void list::next()
+{
 
-    if(curr==listsize-1){
-        //cout<<"After next";
-       // showList();
+    if (curr == listsize - 1)
+    {
+        cout << "Already at the end!" << endl;
         return;
     }
     curr++;
-    //showList();
 }
 
-//length
+// length
 
-int list::length(){
-    //showList();
+int list::length()
+{
+
     return listsize;
 }
 
-//currpos
+// currpos
 
-int list::currpos(){
+int list::currpos()
+{
 
-   // showList();
     return curr;
 }
 
-//moveToPos
+// moveToPos
 
-void list::moveToPos(int pos){
+void list::moveToPos(int pos)
+{
 
-    curr=pos;
-    //showList(); 
+    if (pos < 0 || pos > listsize)
+    {
+        cout << "Invalid position!" << endl;
+        return;
+    }
+    curr = pos;
 }
 
-//getValue
+// getValue
 
-int list::getvalue(){
+int list::getvalue()
+{
 
-    //showList();
+    if (listsize == 0)
+    {
+        cout << "List is empty!" << endl;
+        return arr[curr];
+    }
+    if (curr == listsize)
+    {
+        cout << "Current position is after the last element of the list containing a garbage." << endl;
+        return arr[curr];
+    }
     return arr[curr];
 }
-
-
-

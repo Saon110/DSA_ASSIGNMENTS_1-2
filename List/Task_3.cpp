@@ -1,212 +1,193 @@
-#include<iostream>
-#include"Arr.h"
-//#include"LL.h"
+#include <iostream>
+// #include "Arr.h"  // for array-based list. Comment out for linked-list implementation
+#include "LL.h" // for linked-list-based list. Comment out for array implementation
 using namespace std;
-int main(){
+int main()
+{
 
-    int X,Y,Z;
-    //cin>>X>>Y>>Z;
-    cout<<"Tatal cars: ";
-    cin>>X;
-    cout<<"Tatal garages: ";
-    cin>>Y;
-    cout<<"Maximum capacity: ";
-    cin>>Z;
-    list garage[Y-1];
-    // for(int i=0;i<Y;i++){
+    int total_car, total_garage, max_capacity;
 
-    //     garage[i].init(0,Z);
+    cout << "Tatal cars: ";
+    cin >> total_car;
+    cout << "Tatal garages: ";
+    cin >> total_garage;
+    cout << "Maximum capacity: ";
+    cin >> max_capacity;
+    list garage[max_capacity - 1]; // array of lists for garages to store cars
 
-    // }
-    for(int i=0;i<Y;i++){
-        int g,c,size;
-        cout<<"Garage no: ";
-        cin>>g;
-        cout<<"Parked cars: ";
-        cin>>c;
-        //size=garage[g-1].length();
-        //cin>>g>>c;
-        garage[i].init(c,Z);
-        // for(int j=0;j<c;j++){
+    for (int i = 0; i < total_garage; i++)
+    {
+        int garage_no, no_of_cars;
+        cout << "Garage no: ";
+        cin >> garage_no;
+        cout << "Parked cars: ";
+        cin >> no_of_cars;
 
-        //     int n;
-        //     cin>>n;
-        //     garage[g-1].moveToPos(size);
-        //     garage[g-1].insert(n);
-        // }
+        garage[garage_no - 1].init(no_of_cars, max_capacity); // initialize the list for each garage with cars
     }
-        //char c;
-        // cin>>c;
-        // if(c=='\n'){
-        //     continue;
-        // }
-        // else if(c==' '){
-        //}
-    for(int i=0;i<Y;i++){
-        // int size=garage[i].length();
-        // cout<<i+1<<" ";
-        // for(int j=0;j<size;j++){
 
-        //     garage[i].moveToPos(j);
-        //     cout<<garage[i].getvalue()<<" ";
+    for (int i = 0; i < total_garage; i++)
+    {
 
-        // }
-        cout<<"Garage:"<<i+1<<"=  ";
+        cout << "Garage:" << i + 1 << "=  ";
         garage[i].showList();
-    }    
+    }
 
-    while(1){
+    while (1)
+    {
         string str;
-        cin>>str;
+        cin >> str;
 
-        //end
-        if(str=="end"){
+        // end the program
+        if (str == "end")
+        {
 
-        for(int i=0;i<Y;i++){
-        
-            cout<<"Garage:"<<i+1<<"=  ";
-            garage[i].showList();
-        }    
-           return 0;
+            for (int i = 0; i < total_garage; i++)
+            {
+
+                cout << "Garage:" << i + 1 << "=  ";
+                garage[i].showList();
+            }
+            return 0;
         }
 
-        //req
-        if(str=="req"){
+        // request a car from the garage
+        if (str == "req")
+        {
 
-            //int c=0;
-            //int minindex=0;
             int i;
-            for(i=0;i<Y;i++){
-                if(garage[i].length()>0){
-                    // minindex=i;
-                    // c=1;
+            for (i = 0; i < total_garage; i++)
+            {
+                if (garage[i].length() > 0)
+                {
                     break;
                 }
-                else if(i==Y)break;
             }
 
-            // int arr[Y];
-            // for(int i=0;i<Y;i++){
-            //     arr[i]=garage[i].length();
-            // }
-            //find the garage with least label
-            // for(int i=0;i<Y;i++){
-            //     for(int j=i;j<Y;j++){
-            //         if(arr[j]<arr[i]){
-            //             int temp=arr[i];
-            //             arr[i]=arr[j];
-            //             arr[j]=temp;
-            //         }
-            //     }
-            // }
-            // int minindex=0;
-            // for(int i=0;i<Y;i++){
-            //     //if(arr[i]==0)continue;
-            //     if(arr[i]>0){
-            //         minindex=i;
-            //         break;
-            //     }
-            // }
-            if(garage[i].length()==0){
-                cout<<"All garages are empty!!!"<<endl;
-                for(int j=0;j<Y;j++){
-                    cout<<"Garage:"<<j+1<<"=  ";
+            if (i == total_garage) // if all garages are empty
+            {
+                cout << "All garages are empty!!!" << endl;
+                for (int j = 0; j < total_garage; j++)
+                {
+                    cout << "Garage:" << j + 1 << "=  ";
                     garage[j].showList();
                 }
             }
-            else{
-                //find the car with least label
+            else
+            {
+                // find the car with least label
                 int car_min;
                 garage[i].moveToStart();
-                car_min=garage[i].getvalue();
-                int minpos=0;
-                for(int j=0;j<garage[i].length();j++){
-                    //garage[minindex].moveToPos(i);
-                    if(garage[i].getvalue()<car_min){
-                        car_min=garage[i].getvalue();
-                        minpos=j;
+                car_min = garage[i].getvalue();
+                int minpos = 0;
+                for (int j = 0; j < garage[i].length(); j++)
+                {
 
+                    if (garage[i].getvalue() < car_min)
+                    {
+                        car_min = garage[i].getvalue();
+                        minpos = j;
                     }
-                    garage[i].next();
+                    if (j != garage[i].length() - 1)
+                    {
+                        garage[i].next();
+                    }
                 }
                 garage[i].moveToPos(minpos);
                 garage[i].remove();
                 garage[i].moveToStart();
-                for(int j=0;j<Y;j++){
-                    cout<<"Garage:"<<j+1<<"=  ";
+                for (int j = 0; j < total_garage; j++)
+                {
+                    cout << "Garage:" << j + 1 << "=  ";
                     garage[j].showList();
                 }
-                
             }
-            
         }
-        //return
-        if(str=="ret"){
-            int n;
-            cin>>n;
-            // int c=0;
-            // int maxindex=Y-1;
+        // return a car to the garage
+        if (str == "ret")
+        {
+            int car;
+            cin >> car;
             int i;
-            for(i=Y-1;i>=0;i--){
-                if(garage[i].length()<Z){
-                    // maxindex=i;
-                    // c=1;
+            for (i = total_garage - 1; i >= 0; i--)
+            {
+                if (garage[i].length() < max_capacity)
+                {
                     break;
                 }
-                else if(i==Y)break;
             }
-            if(garage[i].length()>Z){
-                cout<<"All garages are filled!!!"<<endl;
-                for(int j=0;j<Y;j++){
-                    cout<<"Garage:"<<j+1<<"=  ";
+            if (i == -1) // if all garages are filled
+            {
+                cout << "All garages are filled!!!" << endl;
+                for (int j = 0; j < total_garage; j++)
+                {
+                    cout << "Garage:" << j + 1 << "=  ";
                     garage[j].showList();
                 }
             }
-            else{
+            else if (garage[i].length() == 0)
+            {
+                garage[i].insert(car);
                 garage[i].moveToStart();
-                int car_max=garage[i].getvalue();
-                int maxpos=0;
-                int size=garage[i].length();
-                for(int j=1;j<size;j++){
-                    //garage[maxindex].moveToPos(0);
-                    if(garage[i].getvalue()>car_max){
-                        maxpos=j;
-                    }
-                    garage[i].next();
-                    
-                }
-
-                    garage[i].moveToPos(maxpos);
-                    if(maxpos==0){
-                        if(n<garage[i].getvalue()){
-                            garage[i].moveToEnd();
-                            garage[i].next();
-                            garage[i].insert(n);
-                        }
-                        else{
-                            garage[i].insert(n);}
-                        garage[i].moveToStart();
-                        for(int j=0;j<Y;j++){
-                        cout<<"Garage:"<<j+1<<"=  ";
-                        garage[j].showList();
-                }
-                    }
-
-                    else{
-                    garage[i].next();
-                    garage[i].insert(n);
-                    garage[i].moveToStart();
-                    for(int j=0;j<Y;j++){
-                    cout<<"Garage:"<<j+1<<"=  ";
+                for (int j = 0; j < total_garage; j++)
+                {
+                    cout << "Garage:" << j + 1 << "=  ";
                     garage[j].showList();
-                }}
-
+                }
             }
+            else
+            {
+                garage[i].moveToStart();
+                int car_max = garage[i].getvalue();
+                int maxpos = 0;
+                int size = garage[i].length();
+                for (int j = 0; j < size; j++)
+                {
 
+                    if (garage[i].getvalue() > car_max)
+                    {
+                        maxpos = j;
+                    }
+                    if (j != size - 1)
+                    {
+                        garage[i].next();
+                    }
+                }
+
+                garage[i].moveToPos(maxpos);
+                if (maxpos == 0)
+                {
+                    if (car < garage[i].getvalue()) // if the car is less than the first car in the garage
+                    {
+
+                        garage[i].moveToPos(maxpos + 1);
+                        garage[i].insert(car);
+                    }
+                    else // if the car is the largest in the garage
+
+                    {
+                        garage[i].insert(car);
+                    }
+                    garage[i].moveToStart();
+                    for (int j = 0; j < total_garage; j++)
+                    {
+                        cout << "Garage:" << j + 1 << "=  ";
+                        garage[j].showList();
+                    }
+                }
+
+                else
+                {
+                    garage[i].moveToPos(maxpos + 1);
+                    garage[i].insert(car);
+                    garage[i].moveToStart();
+                    for (int j = 0; j < total_garage; j++)
+                    {
+                        cout << "Garage:" << j + 1 << "=  ";
+                        garage[j].showList();
+                    }
+                }
+            }
         }
-
     }
-
-    
-
 }

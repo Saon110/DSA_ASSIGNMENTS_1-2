@@ -9,6 +9,7 @@ bool isValid(int x, int y, int rows, int cols)
 }
 
 vector<pair<int, int>> moves = {{-2, 1}, {-2, -1}, {2, 1}, {2, -1}, {1, 2}, {1, -2}, {-1, 2}, {-1, -2}};
+vector<pair<int,int>> allmoves;
 
 vector<pair<int, int>> getPossibleMoves(int x, int y, int k, int rows, int cols)
 {
@@ -20,7 +21,7 @@ vector<pair<int, int>> getPossibleMoves(int x, int y, int k, int rows, int cols)
         {
             int new_x = x + move.first;
             int new_y = y + move.second;
-            if (isValid(new_x, new_y, rows, cols))
+            if (isValid(new_x, new_y, rows, cols) )
             {
                 Moves.push_back({new_x, new_y});
             }
@@ -67,8 +68,8 @@ int BFS(pair<int, int> source, pair<int, int> dest, int k, int rows, int cols)
         int x = u.first;
         int y = u.second;
         Q.pop();
-        vector<pair<int, int>> allmoves = getPossibleMoves(x, y, k, rows, cols);
-        for (auto movement : allmoves)
+        //vector<pair<int, int>> allmoves = getPossibleMoves(x, y, k, rows, cols);
+        for (auto movement : moves)
         {
             int newX = movement.first;
             int newY = movement.second;
@@ -91,11 +92,13 @@ int BFS(pair<int, int> source, pair<int, int> dest, int k, int rows, int cols)
 
 int main()
 {
+    freopen("F:\\1-2\\CSE106(DSA_sessional)\\DSA_assignments_1-2\\Graph\\testio\\io5\\in.txt","r",stdin);
+    freopen("out.txt","w",stdout);
     int rows, cols, num;
     cin >> rows >> cols >> num;
 
     vector<int> minmoves;
-    vector<int> t(rows * cols, 0); // Initialize t with INF
+    vector<int> t(rows * cols, 0); // Initialize t with 0
 
     for (int i = 0; i < num; i++)
     {
@@ -114,7 +117,7 @@ int main()
     }
 
     int minMove = *min_element(t.begin(), t.end());
-    if (minMove == INF)
+    if (minMove >= INF)
     {
         cout << -1 << endl;
     }
@@ -122,6 +125,7 @@ int main()
     {
         cout << minMove << endl;
     }
-
+    fclose(stdin);
+    fclose(stdout);
     return 0;
 }

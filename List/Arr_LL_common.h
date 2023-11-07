@@ -1,58 +1,52 @@
-#include<iostream>
-#include"Arr.h"
-//#include"LL.h"
+// This file contains the implementation of clear(), append(), and Search() functions for the list class.
+
+#include <iostream>
+//#include "Arr.h"   // for array-based list. Comment out for linked-list implementation
+#include"LL.h"       // for linked-list-based list. Comment out for array implementation
 using namespace std;
 
-class newlist:public list{
+class newlist : public list
+{
 
-    public:
-
+public:
     void clear();
     void append(int);
     int Search(int);
-
 };
 
-void newlist::clear(){
+void newlist::clear()
+{
 
     moveToStart();
-    //int size=length();
-    //int i=0;
-    while(length()){
+
+    while (length())
+    {
         remove();
-        //next();
-        //if(i=size)return;
-        //cout<<
-        //i++;
     }
 }
 
-//append
+// append
 
-void newlist::append(int n){
+void newlist::append(int n)
+{
 
-    // if(length()==0){
-    //     insert(n);
-    // }
-    //else{
-        //moveToEnd();
-        //next();
-        int c=currpos();
-        moveToPos(length());
-        insert(n);
-        moveToPos(c);
-    //}
+    int c = currpos();
+    moveToPos(length());
+    insert(n);
+    moveToPos(c);
 }
 
-//Search
+// Search
 
-int newlist::Search(int n){
+int newlist::Search(int n)
+{
 
-    int c=currpos();
+    int c = currpos();
     moveToStart();
-    int size=length();
-    for(int i=0;i<size;i++){
-        if(n==getvalue())
+    int size = length();
+    for (int i = 0; i < size; i++)
+    {
+        if (n == getvalue())
         {
             moveToPos(c);
             return 1;

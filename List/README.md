@@ -1,6 +1,6 @@
 ### Headers
 
-## Instruction for Header File "arrheader.h" & "LL.h":
+## Instruction for Header File "Arr.h" & "LL.h":
 
 # Necessary Functions :
 1. insert(item)- Inserts an element at the current location.
